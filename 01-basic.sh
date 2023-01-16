@@ -8,7 +8,12 @@ else
 fi
 
 echo "Allow sudo w/o password"
-sudo sed -i 's/%sudo    ALL=(ALL:ALL) ALL/%sudo    ALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers
+NOPASSWD=$(sudo grep NOPASSWD /etc/sudoers)
+if [ -n "$NOPASSWD" ]; then
+  echo "Already done..."
+else
+  sudo sed -i 's/%sudo    ALL=(ALL:ALL) ALL/%sudo    ALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers
+fi
 
 echo "Install Ubuntu Updates"
 export DEBIAN_FRONTEND=noninteractive
