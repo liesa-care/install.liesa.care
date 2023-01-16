@@ -64,3 +64,14 @@ else
   cd x
   git clone git@github.com:dezi/gocv.git
 fi
+
+echo "Open Source Repositories"
+cd
+
+go get golang.org/x/sys/unix
+go get golang.org/x/crypto/curve25519
+go get golang.org/x/crypto/acme/autocert
+
+go get github.com/NYTimes/gziphandler
+
+go get cloud.google.com/go/speech/apiv1
