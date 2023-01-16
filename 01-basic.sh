@@ -91,3 +91,47 @@ else
   mkdir /opt/box/gen
   mkdir /opt/box/dev
 fi
+
+echo "Box APT Repository"
+APT_PRESENT=$(grep raspi.hopto.org /etc/apt/sources.list)
+if [ -n "$APT_PRESENT" ]; then
+  echo "Already done..."
+else
+  sudo tee -a /etc/apt/sources.list << EOF
+deb [trusted=yes] http://raspi.hopto.org/dpkg unstable main
+EOF
+fi
+
+echo "Box Package Telegram Library"
+sudo apt install -y box.tdlib.binary
+
+echo "Box Package Kaldi Binaries and Model"
+sudo apt install -y box.kaldi.binary
+sudo apt install -y box.kaldi.model.de
+sudo tee /etc/ld.so.conf.d/kaldi.conf << EOF
+/opt/box/kaldi/lib
+EOF
+sudo ldconfig
+
+echo "Box Packages"
+sudo apt install -y box.tvbox.apk.debug
+
+sudo apt install -y box.sounds
+sudo apt install -y box.tvinfo.de
+
+sudo apt install -y box.cities.data.de
+sudo apt install -y box.cities.infos.de
+sudo apt install -y box.cities.taggers.de
+
+sudo apt install -y box.osm.infos.de
+sudo apt install -y box.osm.taggers.de
+
+sudo apt install -y box.wikipedia.taggers.de
+sudo apt install -y box.wikipedia.teasers.de
+
+sudo apt install -y box.tmdb.taggers.de
+sudo apt install -y box.tmdb.persons.de
+sudo apt install -y box.tmdb.movies.de
+sudo apt install -y box.tmdb.moviesplay.de-de
+sudo apt install -y box.tmdb.series.de
+sudo apt install -y box.tmdb.seriesplay.de-de
