@@ -28,6 +28,10 @@ else
   ssh-copy-id localhost
 fi
 
+echo "User Groups"
+sudo adduser $USER audio
+sudo adduser $USER video
+
 echo "Install Ubuntu Updates"
 export DEBIAN_FRONTEND=noninteractive
 sudo apt update
@@ -101,10 +105,9 @@ echo "Box Directory"
 if test -d "/opt/box"; then
   echo "Already done..."
 else
-  MYSELF=$(whoami)
   sudo mkdir /opt/box
-  sudo chown $MYSELF /opt/box
-  sudo chgrp $MYSELF /opt/box
+  sudo chown $USER /opt/box
+  sudo chgrp $USER /opt/box
   mkdir /opt/box/etc
   mkdir /opt/box/log
   mkdir /opt/box/var
