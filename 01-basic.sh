@@ -38,6 +38,7 @@ sudo apt update
 sudo apt upgrade -y
 
 echo "Install additional packages"
+sudo apt install -y iw
 sudo apt install -y adb
 sudo apt install -y git
 sudo apt install -y nmap
