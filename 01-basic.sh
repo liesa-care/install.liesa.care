@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+# Basic setup for normal box.
+#
+
 echo "Force apt to IPV4"
 if test -f "/etc/apt/apt.conf.d/90force-ipv4"; then
   echo "Already done..."
@@ -15,6 +19,15 @@ else
   sudo sed -i 's/%sudo    ALL=(ALL:ALL) ALL/%sudo    ALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers
 fi
 
+echo "SSH Key Generation"
+cd
+if test -d ".ssh"; then
+  echo "Already done..."
+else
+  ssh-keygen
+  ssh-copy-id localhost
+fi
+
 echo "Install Ubuntu Updates"
 export DEBIAN_FRONTEND=noninteractive
 sudo apt update
@@ -22,6 +35,7 @@ sudo apt upgrade -y
 
 echo "Install additional packages"
 sudo apt install -y adb
+sudo apt install -y git
 sudo apt install -y nmap
 sudo apt install -y ffmpeg
 sudo apt install -y v4l-utils
