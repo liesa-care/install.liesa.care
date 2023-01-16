@@ -28,10 +28,6 @@ else
   ssh-copy-id localhost
 fi
 
-echo "User Groups"
-sudo adduser $USER audio
-sudo adduser $USER video
-
 echo "Install Ubuntu Updates"
 export DEBIAN_FRONTEND=noninteractive
 sudo apt update
@@ -60,6 +56,21 @@ sudo apt install -y libical-dev
 sudo apt install -y libreadline-dev
 sudo apt install -y libssl-dev
 sudo apt install -y zlib1g-dev
+
+echo "Set Bluetooth to Compat Mode"
+BT_CONFIG="/etc/systemd/system/dbus-org.bluez.service"
+BT_OLD="ExecStart=/usr/lib/bluetooth/bluetoothd"
+BT_NEW="ExecStart=/usr/lib/bluetooth/bluetoothd -d --compat"
+BT_OK=$(sudo grep "$BT_NEW" $BT_CONFIG)
+if [ -n "$BT_OK" ]; then
+  echo "Already done..."
+else
+  sudo sed -i "s:$BT_OLD:$BT_NEW:g" $BT_CONFIG
+fi
+
+echo "User Groups"
+sudo adduser $USER audio
+sudo adduser $USER video
 
 echo "Aliases and Paths"
 cd
@@ -159,3 +170,6 @@ sudo apt install -y box.tmdb.movies.de
 sudo apt install -y box.tmdb.moviesplay.de-de
 sudo apt install -y box.tmdb.series.de
 sudo apt install -y box.tmdb.seriesplay.de-de
+
+echo "Crontab"
+echo "@reboot sleep 10 && ssh localhost ~/.onboot >~/.onboot.log 2>&1" | crontab -
