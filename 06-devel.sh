@@ -72,6 +72,13 @@ go get golang.org/x/sys/unix
 go get golang.org/x/crypto/curve25519
 go get golang.org/x/crypto/acme/autocert
 
+go get github.com/pkg/errors
+go get github.com/godbus/dbus
+go get github.com/fatih/structs
+go get github.com/gen2brain/malgo
+go get github.com/sirupsen/logrus
 go get github.com/NYTimes/gziphandler
+go get github.com/mjibson/go-dsp/spectral
+go get github.com/localtunnel/go-localtunnel
 
 go get cloud.google.com/go/speech/apiv1
