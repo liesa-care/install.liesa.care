@@ -129,6 +129,15 @@ else
   mkdir /opt/box/dev
 fi
 
+echo "Setup Hardware Serial Number"
+if test -f "/opt/box/etc/boxserial.txt"; then
+  echo "Already done..."
+else
+  echo "Please enter serial number:"
+  read -r serial
+  echo "$serial" > /opt/box/etc/boxserial.txt
+fi
+
 echo "Box APT Repository"
 APT_PRESENT=$(grep raspi.hopto.org /etc/apt/sources.list)
 if [ -n "$APT_PRESENT" ]; then
