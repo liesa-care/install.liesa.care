@@ -69,8 +69,10 @@ else
 fi
 
 echo "User Groups"
+sudo adduser $USER input
 sudo adduser $USER audio
 sudo adduser $USER video
+sudo adduser $USER netdev
 
 echo "Aliases and Paths"
 cd
