@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Development setup for source box.
+# Development Setup for Source Box.
 #
 
 echo "Git Install"
@@ -65,7 +65,7 @@ else
   git clone git@github.com:dezi/gocv.git
 fi
 
-echo "Open Source Repositories"
+echo "Open Source Golang Repositories"
 cd
 
 go get golang.org/x/sys/unix
