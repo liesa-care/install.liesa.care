@@ -34,6 +34,18 @@ else
   git clone git@github.com:dezi/packs.go.goodies.git
 fi
 
+echo "Liesa-Care Repositories"
+cd
+if test -d "go/src/github.com/liesa-care"; then
+  echo "Already done..."
+else
+  cd go/src/github.com
+  mkdir liesa-care
+  cd liesa-care
+  git clone git@github.com:liesa-care/install.liesa.care
+  git clone git@github.com:liesa-care/project.go.liesa.main.git
+fi
+
 echo "Forked Repositories"
 
 if test -d "go/src/github.com/muka"; then
