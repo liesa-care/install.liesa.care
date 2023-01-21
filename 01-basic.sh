@@ -58,6 +58,8 @@ sudo apt install -y libreadline-dev
 sudo apt install -y libssl-dev
 sudo apt install -y zlib1g-dev
 
+sudo snap remove snapd-desktop-integration
+
 echo "Set Bluetooth to Compat Mode"
 BT_CONFIG="/etc/systemd/system/dbus-org.bluez.service"
 BT_OLD="ExecStart=/usr/lib/bluetooth/bluetoothd"
@@ -70,17 +72,17 @@ else
 fi
 
 echo "Setup Udev USB Auto Mount"
-if test -f "/etc/udev/rules.d/99-auto-usb-mount.rules"; then
+if test -f "/etc/udev/rules.d/99-usb.auto-mount.rules"; then
   echo "Already done..."
 else
   sudo mkdir /media/auto-usb
   sudo mkdir /media/usb-sticks
-  sudo tee /etc/udev/rules.d/99-auto-usb-mount.rules << EOF
-ACTION=="add", KERNEL=="sd*", ENV{DEVTYPE}=="partition", ENV{ID_BUS}=="usb", \
-    SYMLINK+="usbdisks/%k", MODE:="0660", \
-    RUN+="/bin/rm /media/usb-sticks/%k", \
+  sudo tee /etc/udev/rules.d/99-usb.auto-mount.rules << EOF
+ACTION=="add", KERNEL=="sd*", ENV{DEVTYPE}=="partition", ENV{ID_BUS}=="usb", \\
+    SYMLINK+="usbdisks/%k", MODE:="0660", \\
+    RUN+="/bin/rm /media/usb-sticks/%k", \\
     RUN+="/bin/ln -sf /media/auto-usb/%k /media/usb-sticks/%k"
-ACTION=="remove", KERNEL=="sd*", ENV{DEVTYPE}=="partition", ENV{ID_BUS}=="usb", \
+ACTION=="remove", KERNEL=="sd*", ENV{DEVTYPE}=="partition", ENV{ID_BUS}=="usb", \\
     RUN+="/bin/rm /media/usb-sticks/%k"
 EOF
   sudo udevadm control --reload-rules
@@ -95,9 +97,9 @@ else
 EOF
   sudo tee /etc/auto.usb << EOF
 #!/bin/bash
-fstype=$(/sbin/blkid -o value -s TYPE /dev/usbdisks/${1})
-if [ "${fstype}" = "vfat" ] ; then
-  echo "-fstype=vfat,sync,uid=0,gid=plugdev,umask=000 :/dev/usbdisks/${1}"
+fstype=\$(/sbin/blkid -o value -s TYPE /dev/usbdisks/\${1})
+if [ "\${fstype}" = "vfat" ] ; then
+  echo "-fstype=vfat,sync,uid=0,gid=plugdev,umask=000 :/dev/usbdisks/\${1}"
   exit 0
 fi
 exit 1
@@ -111,6 +113,7 @@ sudo adduser $USER input
 sudo adduser $USER audio
 sudo adduser $USER video
 sudo adduser $USER netdev
+sudo adduser $USER plugdev
 
 echo "Aliases and Paths"
 cd
