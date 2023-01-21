@@ -39,6 +39,7 @@ sudo apt install -y adb
 sudo apt install -y git
 sudo apt install -y nmap
 sudo apt install -y ffmpeg
+sudo apt install -y autofs
 sudo apt install -y v4l-utils
 sudo apt install -y net-tools
 sudo apt install -y pavucontrol
@@ -66,6 +67,43 @@ if [ -n "$BT_OK" ]; then
   echo "Already done..."
 else
   sudo sed -i "s:$BT_OLD:$BT_NEW:g" $BT_CONFIG
+fi
+
+echo "Setup Udev USB Auto Mount"
+if test -f "/etc/udev/rules.d/99-auto-usb-mount.rules"; then
+  echo "Already done..."
+else
+  sudo mkdir /media/auto-usb
+  sudo mkdir /media/usb-sticks
+  sudo tee /etc/udev/rules.d/99-auto-usb-mount.rules << EOF
+ACTION=="add", KERNEL=="sd*", ENV{DEVTYPE}=="partition", ENV{ID_BUS}=="usb", \
+    SYMLINK+="usbdisks/%k", MODE:="0660", \
+    RUN+="/bin/rm /media/usb-sticks/%k", \
+    RUN+="/bin/ln -sf /media/auto-usb/%k /media/usb-sticks/%k"
+ACTION=="remove", KERNEL=="sd*", ENV{DEVTYPE}=="partition", ENV{ID_BUS}=="usb", \
+    RUN+="/bin/rm /media/usb-sticks/%k"
+EOF
+  sudo udevadm control --reload-rules
+fi
+
+echo "Setup autofs USB Auto Mount"
+if test -f "/etc/auto.master.d/usb.autofs"; then
+  echo "Already done..."
+else
+  sudo tee /etc/auto.master.d/usb.autofs << EOF
+/media/auto-usb /etc/auto.usb --timeout=60
+EOF
+  sudo tee /etc/auto.usb << EOF
+#!/bin/bash
+fstype=$(/sbin/blkid -o value -s TYPE /dev/usbdisks/${1})
+if [ "${fstype}" = "vfat" ] ; then
+  echo "-fstype=vfat,sync,uid=0,gid=plugdev,umask=000 :/dev/usbdisks/${1}"
+  exit 0
+fi
+exit 1
+EOF
+  sudo chmod a+x /etc/auto.usb
+  sudo service autofs reload
 fi
 
 echo "User Groups"
