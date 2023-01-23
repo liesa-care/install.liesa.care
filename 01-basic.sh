@@ -48,6 +48,7 @@ sudo apt install -y libsbc-dev
 sudo apt install -y libbluetooth-dev
 sudo apt install -y zlib1g-dev
 sudo apt install -y libssl-dev
+sudo apt install -y cpufrequtils
 sudo apt install -y speedtest-cli
 sudo apt install -y wireless-tools
 sudo apt install -y network-manager
