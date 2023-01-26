@@ -94,7 +94,7 @@ if test -f "/etc/auto.master.d/usb.autofs"; then
   echo "Already done..."
 else
   sudo tee /etc/auto.master.d/usb.autofs << EOF
-/media/auto-usb /etc/auto.usb --timeout=60
+/media/auto-usb /etc/auto.usb --ghost
 EOF
   sudo tee /etc/auto.usb << EOF
 #!/bin/bash
