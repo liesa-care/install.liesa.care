@@ -87,6 +87,8 @@ go get golang.org/x/crypto/acme/autocert
 go get github.com/pkg/errors
 go get github.com/godbus/dbus
 go get github.com/fatih/structs
+go get github.com/mgutz/logxi/v1
+go get github.com/raff/goble/xpc
 go get github.com/gen2brain/malgo
 go get github.com/sirupsen/logrus
 go get github.com/0x9ef/openai-go
