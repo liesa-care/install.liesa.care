@@ -40,6 +40,7 @@ sudo apt install -y git
 sudo apt install -y nmap
 sudo apt install -y ffmpeg
 sudo apt install -y autofs
+sudo apt install -y hwinfo
 sudo apt install -y v4l-utils
 sudo apt install -y net-tools
 sudo apt install -y pavucontrol
