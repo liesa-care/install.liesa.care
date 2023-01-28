@@ -89,7 +89,6 @@ go get github.com/godbus/dbus
 go get github.com/fatih/structs
 go get github.com/gen2brain/malgo
 go get github.com/sirupsen/logrus
-go get github.com/0x9ef/openai-go
 go get github.com/mssola/user_agent
 go get github.com/NYTimes/gziphandler
 go get github.com/go-playground/validator
