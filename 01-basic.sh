@@ -164,6 +164,7 @@ else
   sudo mkdir /opt/box
   sudo chown $USER /opt/box
   sudo chgrp $USER /opt/box
+#  sudo chgrp staff /opt/box
   mkdir /opt/box/etc
   mkdir /opt/box/log
   mkdir /opt/box/var
