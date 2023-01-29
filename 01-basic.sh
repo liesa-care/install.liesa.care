@@ -34,31 +34,12 @@ sudo apt update
 sudo apt upgrade -y
 
 echo "Install additional packages"
-sudo apt install -y iw
-sudo apt install -y adb
-sudo apt install -y git
-sudo apt install -y nmap
-sudo apt install -y ffmpeg
-sudo apt install -y autofs
-sudo apt install -y hwinfo
-sudo apt install -y v4l-utils
-sudo apt install -y net-tools
-sudo apt install -y pavucontrol
-sudo apt install -y build-essential
-sudo apt install -y libsbc-dev
-sudo apt install -y libbluetooth-dev
-sudo apt install -y zlib1g-dev
-sudo apt install -y libssl-dev
-sudo apt install -y cpufrequtils
-sudo apt install -y speedtest-cli
-sudo apt install -y wireless-tools
-sudo apt install -y network-manager
-sudo apt install -y libdbus-1-dev
-sudo apt install -y libudev-dev
-sudo apt install -y libical-dev
-sudo apt install -y libreadline-dev
-sudo apt install -y libssl-dev
-sudo apt install -y zlib1g-dev
+sudo apt install -y iw adb git nmap ffmpeg autofs hwinfo
+sudo apt install -y v4l-utils net-tools pavucontrol build-essential
+sudo apt install -y libsbc-dev libbluetooth-dev zlib1g-dev libssl-dev
+sudo apt install -y cpufrequtils speedtest-cli wireless-tools network-manager
+sudo apt install -y libdbus-1-dev libudev-dev libical-dev libreadline-dev
+sudo apt install -y libssl-dev zlib1g-dev
 
 sudo apt autoremove -y
 
@@ -171,7 +152,7 @@ else
   sudo mkdir /opt/box
   sudo chown $USER /opt/box
   sudo chgrp $USER /opt/box
-#  sudo chgrp staff /opt/box
+# sudo chgrp staff /opt/box
   mkdir /opt/box/etc
   mkdir /opt/box/log
   mkdir /opt/box/var

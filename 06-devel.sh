@@ -47,7 +47,7 @@ else
 fi
 
 echo "Forked Repositories"
-
+cd
 if test -d "go/src/github.com/muka"; then
   echo "Already done..."
 else
