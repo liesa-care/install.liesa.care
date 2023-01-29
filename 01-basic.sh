@@ -137,6 +137,10 @@ EOF
 . .profile
 fi
 
+echo "Enable user background processes"
+sudo loginctl enable-linger $USER
+sudo sed -i 's/#KillUserProcesses=no/KillUserProcesses=no/g' /etc/systemd/logind.conf
+
 echo "GO Install"
 if test -d "/usr/local/go"; then
   echo "Already done..."
@@ -227,4 +231,6 @@ sudo apt install -y box.tmdb.series.de
 sudo apt install -y box.tmdb.seriesplay.de-de
 
 echo "Crontab"
-echo "@reboot sleep 10 && ssh localhost ~/.onboot >~/.onboot.log 2>&1" | crontab -
+LINE1="@reboot sleep 10 && ssh localhost sleep 999999d"
+LINE2="@reboot sleep 10 && ssh localhost ~/.onboot >~/.onboot.log 2>&1"
+echo -e "$LINE1\n$LINE2" | crontab -
