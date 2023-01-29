@@ -4,19 +4,19 @@
 # Basic setup for normal box.
 #
 
-echo "Force apt to IPV4"
-if test -f "/etc/apt/apt.conf.d/90force-ipv4"; then
-  echo "Already done..."
-else
-  echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/90force-ipv4
-fi
-
 echo "Allow sudo w/o password"
 NOPASSWD=$(sudo grep NOPASSWD /etc/sudoers)
 if [ -n "$NOPASSWD" ]; then
   echo "Already done..."
 else
-  sudo sed -i 's/%sudo    ALL=(ALL:ALL) ALL/%sudo    ALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers
+  sudo sed -i 's/%sudo\tALL=(ALL:ALL) ALL/%sudo\tALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers
+fi
+
+echo "Force apt to IPV4"
+if test -f "/etc/apt/apt.conf.d/90force-ipv4"; then
+  echo "Already done..."
+else
+  echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/90force-ipv4
 fi
 
 echo "SSH Key Generation"
@@ -59,6 +59,8 @@ sudo apt install -y libical-dev
 sudo apt install -y libreadline-dev
 sudo apt install -y libssl-dev
 sudo apt install -y zlib1g-dev
+
+sudo apt autoremove -y
 
 sudo snap remove snapd-desktop-integration
 
