@@ -16,6 +16,8 @@ sudo apt install -y tvheadend
 echo "Stopping TvHeadend Service"
 sudo service tvheadend stop
 
+echo "Fix fucked up de-Kabel_Deutschland-Hannover"
+
 echo "Change TvHeadend running user"
 rm -rf .hts
 sudo mv ../hts/.hts .
