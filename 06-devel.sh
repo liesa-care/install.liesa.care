@@ -66,7 +66,7 @@ else
   git clone git@github.com:dezi/ble.git
 fi
 
-if test -d "go/src/github.com/gocv.io"; then
+if test -d "go/src/gocv.io/x"; then
   echo "Already done..."
 else
   cd ~/go/src
@@ -76,6 +76,10 @@ else
   cd x
   git clone git@github.com:dezi/gocv.git
 fi
+
+echo "Open Source Golang Repositories OSX only"
+cd
+go get github.com/raff/goble/xpc
 
 echo "Open Source Golang Repositories"
 cd
@@ -88,7 +92,6 @@ go get github.com/pkg/errors
 go get github.com/godbus/dbus
 go get github.com/fatih/structs
 go get github.com/mgutz/logxi/v1
-go get github.com/raff/goble/xpc
 go get github.com/gen2brain/malgo
 go get github.com/sirupsen/logrus
 go get github.com/mssola/user_agent

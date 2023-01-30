@@ -37,3 +37,8 @@ sudo vi /etc/default/tvheadend
 
 echo "Start TvHeadend Service"
 sudo service tvheadend start
+
+echo "Setup Nightly Reboot"
+sudo tee -a /etc/crontab << EOF
+0 4   *   *   *    /sbin/shutdown -r +5
+EOF
