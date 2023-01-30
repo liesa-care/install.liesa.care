@@ -170,6 +170,15 @@ else
   echo "$serial" > /opt/box/etc/boxserial.txt
 fi
 
+echo "Setup Box Owner Email"
+if test -f "/opt/box/etc/boxowner.txt"; then
+  echo "Already done..."
+else
+  echo "Please enter Your email (required to access box via app):"
+  read -r email
+  echo "$email" > /opt/box/etc/boxowner.txt
+fi
+
 echo "Box APT Repository"
 APT_PRESENT=$(grep raspi.hopto.org /etc/apt/sources.list)
 if [ -n "$APT_PRESENT" ]; then
@@ -178,6 +187,7 @@ else
   sudo tee -a /etc/apt/sources.list << EOF
 deb [trusted=yes] http://raspi.hopto.org/dpkg unstable main
 EOF
+  sudo apt update
 fi
 
 echo "Box Package Telegram Library"
