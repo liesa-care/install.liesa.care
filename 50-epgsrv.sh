@@ -29,7 +29,7 @@ sudo rm -r /home/hts
 sudo vi /etc/default/tvheadend
 #...
 #-OPTIONS="-u hts -g video -6"
-#+OPTIONS="-u ${USER} -g video"
+#+OPTIONS="-u ${USER} -g video -C"
 #...
 #-TVH_USER="hts"
 #+TVH_USER="${USER}"
