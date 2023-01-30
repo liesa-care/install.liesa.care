@@ -43,6 +43,7 @@ sudo apt install -y libssl-dev zlib1g-dev
 
 sudo apt autoremove -y
 
+echo "Remove Desktop Integration Bug"
 sudo snap remove snapd-desktop-integration
 
 echo "Set Bluetooth to Compat Mode"
