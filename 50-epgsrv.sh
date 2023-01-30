@@ -16,7 +16,9 @@ sudo apt install -y tvheadend
 echo "Stopping TvHeadend Service"
 sudo service tvheadend stop
 
-echo "Fix fucked up de-Kabel_Deutschland-Hannover"
+echo "Fix Fucked Up de-Kabel_Deutschland-Hannover Mux Listing"
+wget https://raw.githubusercontent.com/liesa-care/install.liesa.care/main/tvheadend/de-Kabel_Deutschland-Dezi
+sudo mv de-Kabel_Deutschland-Dezi /usr/share/tvheadend/data/dvb-scan/dvb-c
 
 echo "Change TvHeadend running user"
 rm -rf .hts
