@@ -98,6 +98,5 @@ go get github.com/mssola/user_agent
 go get github.com/NYTimes/gziphandler
 go get github.com/go-playground/validator
 go get github.com/mjibson/go-dsp/spectral
-go get github.com/localtunnel/go-localtunnel
 
 go get cloud.google.com/go/speech/apiv1
