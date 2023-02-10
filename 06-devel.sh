@@ -99,4 +99,5 @@ go get github.com/NYTimes/gziphandler
 go get github.com/go-playground/validator
 go get github.com/mjibson/go-dsp/spectral
 
+go get cloud.google.com/go/firestore
 go get cloud.google.com/go/speech/apiv1
