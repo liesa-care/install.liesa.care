@@ -34,12 +34,13 @@ sudo apt update
 sudo apt upgrade -y
 
 echo "Install additional packages"
-sudo apt install -y iw adb git nmap ffmpeg autofs hwinfo
-sudo apt install -y v4l-utils net-tools pavucontrol build-essential
-sudo apt install -y libsbc-dev libbluetooth-dev zlib1g-dev libssl-dev
-sudo apt install -y cpufrequtils speedtest-cli wireless-tools network-manager
-sudo apt install -y libdbus-1-dev libudev-dev libical-dev libreadline-dev
-sudo apt install -y libssl-dev zlib1g-dev
+sudo apt install -y \
+  iw adb git nmap ffmpeg autofs hwinfo \
+  v4l-utils net-tools pavucontrol build-essential \
+  libsbc-dev libbluetooth-dev zlib1g-dev libssl-dev \
+  cpufrequtils speedtest-cli wireless-tools network-manager \
+  libdbus-1-dev libudev-dev libical-dev libreadline-dev \
+  libssl-dev zlib1g-dev
 
 sudo apt autoremove -y
 
