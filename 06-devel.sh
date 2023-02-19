@@ -81,6 +81,10 @@ echo "Open Source Golang Repositories OSX only"
 cd
 go get github.com/raff/goble/xpc
 
+echo "DPKG Utility OSX only"
+cd
+brew install dpkg
+
 echo "Open Source Golang Repositories"
 cd
 
