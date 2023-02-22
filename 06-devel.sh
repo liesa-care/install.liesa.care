@@ -106,3 +106,23 @@ go get github.com/mjibson/go-dsp/spectral
 go get googlemaps.github.io/maps
 go get cloud.google.com/go/firestore
 go get cloud.google.com/go/speech/apiv1
+
+echo "Onboot script"
+cd
+if test -f ".onboot"; then
+  echo "Already done..."
+else
+  tee .onboot << EOF
+#!/bin/bash
+killall webbox
+cd ~/go/src/github.com/liesa-care
+cd project.go.liesa.main; git pull; cd ..
+cd project.go.liesa.main; sh goget.sh; cd ..
+cd ~/go/src/github.com/dezi
+cd project.go.server; git pull; cd ..
+cd packs.go.goodies; git pull; cd ..
+go build -o webbox project.go.server/roles/webbox/main.go
+nohup ./webbox >/dev/null 2>&1 &
+EOF
+  chmod a+x .onboot
+fi
