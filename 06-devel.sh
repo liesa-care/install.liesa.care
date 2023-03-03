@@ -48,6 +48,16 @@ fi
 
 echo "Forked Repositories"
 cd
+if test -d "go/src/github.com/hajimehoshi"; then
+  echo "Already done..."
+else
+  cd ~/go/src/github.com
+  mkdir hajimehoshi
+  cd hajimehoshi
+  git clone git@github.com:dezi/oto.git
+fi
+
+cd
 if test -d "go/src/github.com/muka"; then
   echo "Already done..."
 else
