@@ -98,6 +98,10 @@ brew install dpkg
 echo "Open Source Golang Repositories"
 cd
 
+go get github.com/shopspring/decimal
+go get github.com/pemistahl/lingua-go
+go get github.com/andreburgaud/crypt2go
+
 go get golang.org/x/sys/unix
 go get golang.org/x/crypto/curve25519
 go get golang.org/x/crypto/acme/autocert
