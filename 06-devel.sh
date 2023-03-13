@@ -67,14 +67,14 @@ else
   git clone git@github.com:dezi/go-bluetooth.git
 fi
 
-if test -d "go/src/github.com/go-ble"; then
-  echo "Already done..."
-else
-  cd ~/go/src/github.com
-  mkdir go-ble
-  cd go-ble
-  git clone git@github.com:dezi/ble.git
-fi
+#if test -d "go/src/github.com/go-ble"; then
+#  echo "Already done..."
+#else
+#  cd ~/go/src/github.com
+#  mkdir go-ble
+#  cd go-ble
+#  git clone git@github.com:dezi/ble.git
+#fi
 
 if test -d "go/src/gocv.io/x"; then
   echo "Already done..."
