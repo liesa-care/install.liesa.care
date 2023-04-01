@@ -58,14 +58,25 @@ else
 fi
 
 cd
-if test -d "go/src/github.com/muka"; then
+if test -f "go/src/tinygo.org/x/bluetooth/.fork"; then
   echo "Already done..."
 else
-  cd ~/go/src/github.com
-  mkdir muka
-  cd muka
-  git clone git@github.com:dezi/go-bluetooth.git
+  rm -rf ~/go/src/tinygo.org/x/bluetooth
+  mkdir -p ~/go/src/tinygo.org/x
+  cd ~/go/src/tinygo.org/x
+  git clone git@github.com:dezi/bluetooth.git
+  touch bluetooth/.fork
 fi
+
+#cd
+#if test -d "go/src/github.com/muka"; then
+#  echo "Already done..."
+#else
+#  cd ~/go/src/github.com
+#  mkdir muka
+#  cd muka
+#  git clone git@github.com:dezi/go-bluetooth.git
+#fi
 
 #if test -d "go/src/github.com/go-ble"; then
 #  echo "Already done..."
@@ -99,6 +110,7 @@ echo "Open Source Golang Repositories"
 cd
 
 go get github.com/shopspring/decimal
+go get github.com/muka/go-bluetooth
 go get github.com/pemistahl/lingua-go
 go get github.com/andreburgaud/crypt2go
 
