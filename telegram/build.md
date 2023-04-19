@@ -27,6 +27,7 @@ brew install gperf
 ```
 mkdir -p /opt/box/gen
 cd /opt/box/gen
+rm -rf tdlib
 mkdir tdlib
 cd tdlib
 git clone https://github.com/tdlib/td.git
