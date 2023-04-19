@@ -30,6 +30,8 @@ cd /opt/box/gen
 mkdir tdlib
 cd tdlib
 git clone https://github.com/tdlib/td.git
+cd td
+git checkout tags/v1.8.0
 ```
 
 ### Compile for Dpkg-Collect (Linux)
