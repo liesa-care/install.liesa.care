@@ -58,6 +58,7 @@ sudo mount --uuid $NEW_VFAT_UUID $MOUNT_BOOT
 
 # shellcheck disable=SC2155
 export OLD_EXT4_UUID=$(sudo egrep -o -e '[0-9a-f\-]{36}' $MOUNT_BOOT/EFI/ubuntu/grub.cfg)
+
 echo OLD: $OLD_EXT4_UUID
 echo NEW: $NEW_EXT4_UUID
 
@@ -73,13 +74,17 @@ sudo mount --uuid $NEW_EXT4_UUID $MOUNT_ROOT
 
 # shellcheck disable=SC2155
 export OLD_EXT4_UUID=$(sudo egrep -o -e '[0-9a-f\-]{36}' $MOUNT_ROOT/etc/fstab)
+
 echo OLD: $OLD_EXT4_UUID
 echo NEW: $NEW_EXT4_UUID
 
 sudo sed -i "s/$OLD_EXT4_UUID/$NEW_EXT4_UUID/g" $MOUNT_ROOT/etc/fstab
 
 # shellcheck disable=SC2155
-export OLD_VFAT_UUID=$(sudo egrep -o -e '[0-9A-F\-]{9}' $MOUNT_ROOT/etc/fstab)
+export OLD_VFAT_UUID=$(sudo egrep -o -e 'UUID=[0-9A-F]{4}-[0-9A-F]{4}' $MOUNT_ROOT/etc/fstab)
+# shellcheck disable=SC2039
+export OLD_VFAT_UUID=${OLD_VFAT_UUID:5}
+
 echo OLD: $OLD_VFAT_UUID
 echo NEW: $NEW_VFAT_UUID
 
