@@ -113,6 +113,7 @@ go get github.com/moby/term
 go get github.com/creack/pty
 go get github.com/fogleman/gg
 go get github.com/esimov/pigo/core
+go get github.com/blackjack/webcam
 go get github.com/shopspring/decimal
 go get github.com/muka/go-bluetooth
 go get github.com/pemistahl/lingua-go
