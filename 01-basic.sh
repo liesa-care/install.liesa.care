@@ -96,6 +96,7 @@ EOF
 fi
 
 echo "User Groups"
+sudo adduser $USER sudo
 sudo adduser $USER input
 sudo adduser $USER audio
 sudo adduser $USER video
