@@ -1,5 +1,10 @@
 #!/bin/sh
 
+#
+# Tar the box master drives
+# to usb master stick.
+#
+
 export PART_BOOT="/dev/sda1"
 export PART_ROOT="/dev/sda2"
 
