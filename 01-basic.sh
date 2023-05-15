@@ -203,8 +203,6 @@ sudo tee /etc/ld.so.conf.d/kaldi.conf << EOF
 EOF
 sudo ldconfig
 
-sudo apt install -y box.sounds
-
 echo "Box Packages (Optional)"
 sudo apt install -y box.tvbox.apk.debug
 
