@@ -68,3 +68,6 @@ sudo apt -y clean
 #
 # In this case sudo vi /etc/fstab and fix the uuids.
 #
+
+sudo apt -y install box.webmak.debug
+
