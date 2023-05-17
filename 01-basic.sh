@@ -182,12 +182,12 @@ else
 fi
 
 echo "Box APT Repository"
-APT_PRESENT=$(grep raspi.hopto.org /etc/apt/sources.list)
+APT_PRESENT=$(grep apt.liesa.care /etc/apt/sources.list)
 if [ -n "$APT_PRESENT" ]; then
   echo "Already done..."
 else
   sudo tee -a /etc/apt/sources.list << EOF
-deb [trusted=yes] http://raspi.hopto.org/dpkg unstable main
+deb [trusted=yes] http://apt.liesa.care/dpkg unstable main
 EOF
   sudo apt update
 fi
