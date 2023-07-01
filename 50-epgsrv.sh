@@ -6,7 +6,10 @@
 
 echo "Get DVB-C Stick Firmware"
 cd /lib/firmware
-sudo wget http://palosaari.fi/linux/v4l-dvb/firmware/Si2168/Si2168-B40/4.0.25/dvb-demod-si2168-b40-01.fw
+##sudo wget http://palosaari.fi/linux/v4l-dvb/firmware/Si2168/Si2168-B40/4.0.25/dvb-demod-si2168-b40-01.fw
+sudo wget https://raw.githubusercontent.com/liesa-care/install.liesa.care/main/tvheadend/dvb-demod-m88ds3103.fw
+sudo wget https://raw.githubusercontent.com/liesa-care/install.liesa.care/main/tvheadend/dvb-demod-m88ds3103.fw
+sudo wget https://raw.githubusercontent.com/liesa-care/install.liesa.care/main/tvheadend/dvb-demod-m88rs6000.fw
 
 echo "Add TvHeadend Repository"
 sudo add-apt-repository ppa:mamarley/tvheadend-git
