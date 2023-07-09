@@ -187,7 +187,7 @@ if [ -n "$APT_PRESENT" ]; then
   echo "Already done..."
 else
   sudo tee -a /etc/apt/sources.list << EOF
-deb [trusted=yes] http://apt.liesa.care/dpkg unstable main
+deb [trusted=yes] http://apt2.liesa.care/dpkg unstable main
 EOF
   sudo apt update
 fi
