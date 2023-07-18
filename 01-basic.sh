@@ -47,6 +47,11 @@ sudo apt autoremove -y
 echo "Remove Desktop Integration Bug"
 sudo snap remove snapd-desktop-integration
 
+echo "Fix Fucked Up Ubuntu bluez Package"
+cd
+wget https://raw.githubusercontent.com/liesa-care/install.liesa.care/main/bluetooth/bluez_5.66-0ubuntu1_amd64.deb
+sudo sudo dpkg -i bluez_5.66-0ubuntu1_amd64.deb
+
 echo "Set Bluetooth to Compat Mode"
 BT_CONFIG="/etc/systemd/system/dbus-org.bluez.service"
 BT_OLD="ExecStart=/usr/lib/bluetooth/bluetoothd"
