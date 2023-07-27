@@ -111,6 +111,7 @@ cd
 
 go get github.com/moby/term
 go get github.com/creack/pty
+go get github.com/hraban/opus
 go get github.com/fogleman/gg
 go get github.com/esimov/pigo/core
 go get github.com/blackjack/webcam
