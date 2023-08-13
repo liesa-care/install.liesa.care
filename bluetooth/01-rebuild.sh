@@ -4,7 +4,7 @@
 # Repackage bluez with HOG disabled.
 #
 
-export ARCH=amd64
+export ARCH=$(dpkg --print-architecture)
 
 export GLIB2VERSION=2.77.1-2
 export GLIB2=libglib2.0-0_$GLIB2VERSION
