@@ -63,3 +63,23 @@ cd
 cd bluez-patch
 dpkg-deb -b ${GLIB2}_$ARCH ${GLIB2}-dezi_$ARCH.deb
 dpkg-deb -b ${BLUEZ}_$ARCH ${BLUEZ}-dezi_$ARCH.deb
+
+curl -X PUT -d @${GLIB2}-dezi_$ARCH.deb  -H "Dezis-Secret: ouzo" \
+  https://apt1.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${GLIB2}-dezi_$ARCH.deb
+curl -X PUT -d @${GLIB2}-dezi_$ARCH.deb  -H "Dezis-Secret: ouzo" \
+  https://apt2.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${GLIB2}-dezi_$ARCH.deb
+
+curl -X PUT -d @${GLIB2}-dezi_$ARCH.txt  -H "Dezis-Secret: ouzo" \
+  https://apt1.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${GLIB2}-dezi_$ARCH.txt
+curl -X PUT -d @${GLIB2}-dezi_$ARCH.txt  -H "Dezis-Secret: ouzo" \
+  https://apt2.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${GLIB2}-dezi_$ARCH.txt
+
+curl -X PUT -d @${BLUEZ}-dezi_$ARCH.deb  -H "Dezis-Secret: ouzo" \
+  https://apt1.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${BLUEZ}-dezi_$ARCH.deb
+curl -X PUT -d @${BLUEZ}-dezi_$ARCH.deb  -H "Dezis-Secret: ouzo" \
+  https://apt2.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${BLUEZ}-dezi_$ARCH.deb
+
+curl -X PUT -d @${BLUEZ}-dezi_$ARCH.txt  -H "Dezis-Secret: ouzo" \
+  https://apt1.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${BLUEZ}-dezi_$ARCH.txt
+curl -X PUT -d @${BLUEZ}-dezi_$ARCH.txt  -H "Dezis-Secret: ouzo" \
+  https://apt2.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${BLUEZ}-dezi_$ARCH.txt
