@@ -30,9 +30,11 @@ cd bluez-patch
 cp $REPO/bluetooth/${GLIB2}_$ARCH.deb .
 cp $REPO/bluetooth/${BLUEZ}_$ARCH.deb .
 
+rm -rf ${GLIB2}_$ARCH
 mkdir ${GLIB2}_$ARCH
 dpkg-deb -R ${GLIB2}_$ARCH.deb ${GLIB2}_$ARCH
 
+rm -rf ${BLUEZ}_$ARCH
 mkdir ${BLUEZ}_$ARCH
 dpkg-deb -R ${BLUEZ}_$ARCH.deb ${BLUEZ}_$ARCH
 
@@ -64,22 +66,50 @@ cd bluez-patch
 dpkg-deb -b ${GLIB2}_$ARCH ${GLIB2}-dezi_$ARCH.deb
 dpkg-deb -b ${BLUEZ}_$ARCH ${BLUEZ}-dezi_$ARCH.deb
 
-curl -X PUT -d @${GLIB2}-dezi_$ARCH.deb  -H "Dezis-Secret: ouzo" \
-  https://apt1.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${GLIB2}-dezi_$ARCH.deb
-curl -X PUT -d @${GLIB2}-dezi_$ARCH.deb  -H "Dezis-Secret: ouzo" \
-  https://apt2.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${GLIB2}-dezi_$ARCH.deb
+export GLIB2MD5=$(md5sum ${GLIB2}-dezi_$ARCH.deb | egrep -o -e '[0-9a-f]{32}')
+export GLIB2SHA1=$(sha1sum ${GLIB2}-dezi_$ARCH.deb | egrep -o -e '[0-9a-f]{40}')
+export GLIB2SHA256=$(sha256sum ${GLIB2}-dezi_$ARCH.deb | egrep -o -e '[0-9a-f]{64}')
+export GLIB2FILE="dists/unstable/main/binary-all/${GLIB2}-dezi_$ARCH.deb"
+export GLIB2SIZE=$(wc -c < ${GLIB2}-dezi_$ARCH.deb)
 
-curl -X PUT -d @${GLIB2}-dezi_$ARCH.txt  -H "Dezis-Secret: ouzo" \
-  https://apt1.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${GLIB2}-dezi_$ARCH.txt
-curl -X PUT -d @${GLIB2}-dezi_$ARCH.txt  -H "Dezis-Secret: ouzo" \
-  https://apt2.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${GLIB2}-dezi_$ARCH.txt
+tee -a ${GLIB2}-dezi_$ARCH.txt << EOF
+Size: $GLIB2SIZE
+SHA1: $GLIB2SHA1
+SHA256: $GLIB2SHA256
+MD5sum: $GLIB2MD5
+Filename: $GLIB2FILE
+EOF
 
-curl -X PUT -d @${BLUEZ}-dezi_$ARCH.deb  -H "Dezis-Secret: ouzo" \
-  https://apt1.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${BLUEZ}-dezi_$ARCH.deb
-curl -X PUT -d @${BLUEZ}-dezi_$ARCH.deb  -H "Dezis-Secret: ouzo" \
-  https://apt2.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${BLUEZ}-dezi_$ARCH.deb
+export BLUEZMD5=$(md5sum ${BLUEZ}-dezi_$ARCH.deb | egrep -o -e '[0-9a-f]{32}')
+export BLUEZSHA1=$(sha1sum ${BLUEZ}-dezi_$ARCH.deb | egrep -o -e '[0-9a-f]{40}')
+export BLUEZSHA256=$(sha256sum ${BLUEZ}-dezi_$ARCH.deb | egrep -o -e '[0-9a-f]{64}')
+export BLUEZFILE="dists/unstable/main/binary-all/${BLUEZ}-dezi_$ARCH.deb"
+export BLUEZSIZE=$(wc -c < ${BLUEZ}-dezi_$ARCH.deb)
 
-curl -X PUT -d @${BLUEZ}-dezi_$ARCH.txt  -H "Dezis-Secret: ouzo" \
-  https://apt1.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${BLUEZ}-dezi_$ARCH.txt
-curl -X PUT -d @${BLUEZ}-dezi_$ARCH.txt  -H "Dezis-Secret: ouzo" \
-  https://apt2.liesa.care/dpkg/dists/unstable/main/binary-$ARCH/${BLUEZ}-dezi_$ARCH.txt
+tee -a ${BLUEZ}-dezi_$ARCH.txt << EOF
+Size: $BLUEZSIZE
+SHA1: $BLUEZSHA1
+SHA256: $BLUEZSHA256
+MD5sum: $BLUEZMD5
+Filename: $BLUEZFILE
+EOF
+
+curl -X PUT --data-binary @${GLIB2}-dezi_$ARCH.deb -H "Dezis-Secret: ouzo" \
+  https://api1.liesa.care/dpkg/dists/unstable/main/binary-all/${GLIB2}-dezi_$ARCH.deb
+curl -X PUT --data-binary @${GLIB2}-dezi_$ARCH.deb -H "Dezis-Secret: ouzo" \
+  https://api2.liesa.care/dpkg/dists/unstable/main/binary-all/${GLIB2}-dezi_$ARCH.deb
+
+curl -X PUT --data-binary @${GLIB2}-dezi_$ARCH.txt  -H "Dezis-Secret: ouzo" \
+  https://api1.liesa.care/dpkg/dists/unstable/main/binary-all/${GLIB2}-dezi_$ARCH.txt
+curl -X PUT --data-binary @${GLIB2}-dezi_$ARCH.txt  -H "Dezis-Secret: ouzo" \
+  https://api2.liesa.care/dpkg/dists/unstable/main/binary-all/${GLIB2}-dezi_$ARCH.txt
+
+curl -X PUT --data-binary @${BLUEZ}-dezi_$ARCH.deb  -H "Dezis-Secret: ouzo" \
+  https://api1.liesa.care/dpkg/dists/unstable/main/binary-all/${BLUEZ}-dezi_$ARCH.deb
+curl -X PUT --data-binary @${BLUEZ}-dezi_$ARCH.deb  -H "Dezis-Secret: ouzo" \
+  https://api2.liesa.care/dpkg/dists/unstable/main/binary-all/${BLUEZ}-dezi_$ARCH.deb
+
+curl -X PUT --data-binary @${BLUEZ}-dezi_$ARCH.txt  -H "Dezis-Secret: ouzo" \
+  https://api1.liesa.care/dpkg/dists/unstable/main/binary-all/${BLUEZ}-dezi_$ARCH.txt
+curl -X PUT --data-binary @${BLUEZ}-dezi_$ARCH.txt  -H "Dezis-Secret: ouzo" \
+  https://api2.liesa.care/dpkg/dists/unstable/main/binary-all/${BLUEZ}-dezi_$ARCH.txt
