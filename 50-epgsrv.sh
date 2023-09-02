@@ -60,5 +60,5 @@ fi
 
 echo "Setup Nightly Reboot"
 sudo tee -a /etc/crontab << EOF
-0 4   *   *   *    /sbin/shutdown -r +5
+0 4   *   *   *  root  /sbin/shutdown -r +5
 EOF
