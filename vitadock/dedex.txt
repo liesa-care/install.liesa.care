@@ -1,0 +1,15 @@
+
+cd ~/apks
+
+rm -rf de.medisana.vitadockplus
+
+apktool d de.medisana.vitadockplus.apk
+
+apktool b -f de.medisana.vitadockplus
+
+/Users/dezi/Library/Android/sdk/build-tools/33.0.0/zipalign -v 4 de.medisana.vitadockplus/dist/de.medisana.vitadockplus.apk de.medisana.vitadockplus/dist/de.medisana.vitadockplus-aligned.apk
+
+/Users/dezi/Library/Android/sdk/build-tools/33.0.0/apksigner sign --ks-key-alias alias_name --ks my-release-key.keystore de.medisana.vitadockplus/dist/de.medisana.vitadockplus-aligned.apk
+
+adb uninstall de.medisana.vitadockplus
+adb install -r de.medisana.vitadockplus/dist/de.medisana.vitadockplus-aligned.apk
