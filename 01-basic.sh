@@ -137,7 +137,7 @@ echo "GO Install"
 if test -d "/usr/local/go"; then
   echo "Already done..."
 else
-  GO_VERSION="go1.19.5"
+  GO_VERSION="go1.21.1"
   APT_ARCH=$(dpkg --print-architecture)
   cd
   mkdir goinst

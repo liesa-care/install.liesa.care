@@ -22,17 +22,17 @@ else
   git config --global pull.rebase false
 fi
 
-echo "Dezi Repositories"
-cd
-if test -d "go/src/github.com/dezi"; then
-  echo "Already done..."
-else
-  cd go/src/github.com
-  mkdir dezi
-  cd dezi
-  git clone git@github.com:dezi/project.go.server.git
-  git clone git@github.com:dezi/packs.go.goodies.git
-fi
+#echo "Dezi Repositories"
+#cd
+#if test -d "go/src/github.com/dezi"; then
+#  echo "Already done..."
+#else
+#  cd go/src/github.com
+#  mkdir dezi
+#  cd dezi
+#  git clone git@github.com:dezi/project.go.server.git
+#  git clone git@github.com:dezi/packs.go.goodies.git
+#fi
 
 echo "Liesa-Care Repositories"
 cd
@@ -46,27 +46,27 @@ else
   git clone git@github.com:liesa-care/project.go.liesa.main.git
 fi
 
-echo "Forked Repositories"
-cd
-if test -d "go/src/github.com/hajimehoshi"; then
-  echo "Already done..."
-else
-  cd ~/go/src/github.com
-  mkdir hajimehoshi
-  cd hajimehoshi
-  git clone git@github.com:dezi/oto.git
-fi
+#echo "Forked Repositories"
+#cd
+#if test -d "go/src/github.com/hajimehoshi"; then
+#  echo "Already done..."
+#else
+#  cd ~/go/src/github.com
+#  mkdir hajimehoshi
+#  cd hajimehoshi
+#  git clone git@github.com:dezi/oto.git
+#fi
 
-cd
-if test -f "go/src/tinygo.org/x/bluetooth/.fork"; then
-  echo "Already done..."
-else
-  rm -rf ~/go/src/tinygo.org/x/bluetooth
-  mkdir -p ~/go/src/tinygo.org/x
-  cd ~/go/src/tinygo.org/x
-  git clone git@github.com:dezi/bluetooth.git
-  touch bluetooth/.fork
-fi
+#cd
+#if test -f "go/src/tinygo.org/x/bluetooth/.fork"; then
+#  echo "Already done..."
+#else
+#  rm -rf ~/go/src/tinygo.org/x/bluetooth
+#  mkdir -p ~/go/src/tinygo.org/x
+#  cd ~/go/src/tinygo.org/x
+#  git clone git@github.com:dezi/bluetooth.git
+#  touch bluetooth/.fork
+#fi
 
 #cd
 #if test -d "go/src/github.com/muka"; then
@@ -133,10 +133,12 @@ go get github.com/fatih/structs
 go get github.com/mgutz/logxi/v1
 go get github.com/gen2brain/malgo
 go get github.com/sirupsen/logrus
+go get github.com/zelenin/go-tdlib
+go get github.com/pixiv/go-libjpeg
 go get github.com/mssola/user_agent
 go get github.com/NYTimes/gziphandler
 go get github.com/go-playground/validator
-go get github.com/mjibson/go-dsp/spectral
+#go get github.com/mjibson/go-dsp/spectral
 
 go get googlemaps.github.io/maps
 go get cloud.google.com/go/firestore
