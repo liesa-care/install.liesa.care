@@ -20,6 +20,7 @@ sudo apt install -y gperf php-cli cmake g++
 brew install cmake
 brew install openssl
 brew install gperf
+brew install daemonize
 
 ```
 
