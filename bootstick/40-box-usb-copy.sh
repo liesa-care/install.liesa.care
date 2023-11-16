@@ -39,3 +39,6 @@ sudo tar -czvpf ../../install/boot.tgz . > ../../install/boot.log 2>&1
 cd ~/mounts/root
 # shellcheck disable=SC2024
 sudo tar --exclude='swapfile' -czvpf ../../install/root.tgz . > ../../install/root.log 2>&1
+
+sudo umount ~/mounts/boot
+sudo umount ~/mounts/root
