@@ -48,6 +48,9 @@ sudo apt autoremove -y
 echo "Remove Desktop Integration Bug"
 sudo snap remove snapd-desktop-integration
 
+echo "Install node"
+sudo snap install node --classic
+
 echo "Fix Fucked Up Ubuntu bluez Package"
 cd
 wget https://raw.githubusercontent.com/liesa-care/install.liesa.care/main/bluetooth/bluez_5.66-0ubuntu1_amd64.deb
