@@ -41,7 +41,8 @@ sudo apt install -y \
   cpufrequtils speedtest-cli wireless-tools network-manager \
   libdbus-1-dev libudev-dev libical-dev libreadline-dev \
   libssl-dev zlib1g-dev libasound2-dev upower alsa-utils \
-  libopus-dev libopusfile-dev pkg-config
+  libopus-dev libopusfile-dev pkg-config \
+  mosquitto mosquitto-clients
 
 sudo apt autoremove -y
 
@@ -113,6 +114,7 @@ sudo adduser $USER audio
 sudo adduser $USER video
 sudo adduser $USER netdev
 sudo adduser $USER plugdev
+sudo adduser $USER dialout
 
 echo "Aliases and Paths"
 cd

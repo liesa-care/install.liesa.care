@@ -139,6 +139,7 @@ go get github.com/mssola/user_agent
 go get github.com/NYTimes/gziphandler
 go get github.com/go-playground/validator
 #go get github.com/mjibson/go-dsp/spectral
+go get github.com/eclipse/paho.mqtt.golang
 
 go get googlemaps.github.io/maps
 go get cloud.google.com/go/firestore
