@@ -138,7 +138,6 @@ go get github.com/pixiv/go-libjpeg
 go get github.com/mssola/user_agent
 go get github.com/NYTimes/gziphandler
 go get github.com/go-playground/validator
-#go get github.com/mjibson/go-dsp/spectral
 go get github.com/eclipse/paho.mqtt.golang
 
 go get googlemaps.github.io/maps
@@ -164,3 +163,8 @@ nohup ./webbox >/dev/null 2>&1 &
 EOF
   chmod a+x .onboot
 fi
+
+echo "Crontab"
+LINE1="@reboot sleep 10 && ssh localhost sleep 999999d"
+LINE2="@reboot sleep 10 && ssh localhost ~/.onboot >~/.onboot.log 2>&1"
+echo -e "$LINE1\n$LINE2" | crontab -

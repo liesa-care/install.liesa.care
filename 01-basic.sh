@@ -144,7 +144,7 @@ echo "GO Install"
 if test -d "/usr/local/go"; then
   echo "Already done..."
 else
-  GO_VERSION="go1.21.1"
+  GO_VERSION="go1.21.5"
   APT_ARCH=$(dpkg --print-architecture)
   cd
   mkdir goinst
@@ -177,6 +177,8 @@ else
 fi
 
 echo "Setup Hardware Serial Number"
+# Raspi:
+# cp /sys/firmware/devicetree/base/serial-number /opt/box/etc/boxserial.txt
 if test -f "/opt/box/etc/boxserial.txt"; then
   echo "Already done..."
 else
@@ -238,7 +240,3 @@ sudo apt install -y box.tmdb.moviesplay.de-de
 sudo apt install -y box.tmdb.series.de
 sudo apt install -y box.tmdb.seriesplay.de-de
 
-echo "Crontab"
-LINE1="@reboot sleep 10 && ssh localhost sleep 999999d"
-LINE2="@reboot sleep 10 && ssh localhost ~/.onboot >~/.onboot.log 2>&1"
-echo -e "$LINE1\n$LINE2" | crontab -
