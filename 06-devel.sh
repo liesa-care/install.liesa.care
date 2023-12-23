@@ -151,15 +151,13 @@ if test -f ".onboot"; then
 else
   tee .onboot << EOF
 #!/bin/bash
+. .profile
 killall webbox
 cd ~/go/src/github.com/liesa-care
 cd project.go.liesa.main; git pull; cd ..
 cd project.go.liesa.main; sh goget.sh; cd ..
-cd ~/go/src/github.com/dezi
-cd project.go.server; git pull; cd ..
-cd packs.go.goodies; git pull; cd ..
-go build -o webbox project.go.server/roles/webbox/main.go
-nohup ./webbox >/dev/null 2>&1 &
+go build -o webbox project.go.liesa.main/roles/webbox/main.go
+nohup ./webbox >/dev/null 2>/opt/box/log/webbox.err.log &
 EOF
   chmod a+x .onboot
 fi
