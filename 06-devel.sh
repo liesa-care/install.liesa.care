@@ -120,6 +120,7 @@ go get github.com/muka/go-bluetooth
 go get github.com/pemistahl/lingua-go
 go get github.com/nyaruka/phonenumbers
 go get github.com/andreburgaud/crypt2go
+go get github.com/lucasb-eyer/go-colorful
 
 go get golang.org/x/sys/unix
 go get golang.org/x/image/draw
