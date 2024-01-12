@@ -22,6 +22,21 @@ sudo apt -y install openssh-server
 # Do this section via ssh.
 #
 
+echo "Allow sudo w/o password"
+NOPASSWD=$(sudo grep NOPASSWD /etc/sudoers)
+if [ -n "$NOPASSWD" ]; then
+  echo "Already done..."
+else
+  sudo sed -i 's/%sudo\tALL=(ALL:ALL) ALL/%sudo\tALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers
+fi
+
+echo "Force apt to IPV4"
+if test -f "/etc/apt/apt.conf.d/90force-ipv4"; then
+  echo "Already done..."
+else
+  echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/90force-ipv4
+fi
+
 sudo apt -y update
 sudo apt -y upgrade
 
@@ -32,6 +47,26 @@ if [ -n "$MMU_PRESENT" ]; then
 else
   sudo sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="amd_iommu=on iommu.passthrough=on"/g' /etc/default/grub
   sudo update-grub
+fi
+
+echo "Aliases and Paths"
+cd
+if test -f ".profile.bak"; then
+  echo "Already done..."
+else
+  cp .profile .profile.bak
+  cat >> .profile << EOF
+# Liesa-Care additions.
+export PATH=$PATH:/usr/local/go/bin
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+alias psg='ps -eaf | grep -v grep | grep'
+alias ta="tail -f /opt/box/log/webbox.log"
+alias ll="ls -alh"
+alias du="du -h"
+alias df="df -h"
+EOF
+. .profile
 fi
 
 echo "Liesa Care APT Repository"
