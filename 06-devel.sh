@@ -110,6 +110,7 @@ echo "Open Source Golang Repositories"
 cd
 
 go get github.com/moby/term
+go get github.com/rs/zerolog
 go get github.com/creack/pty
 go get github.com/hraban/opus
 go get github.com/fogleman/gg
