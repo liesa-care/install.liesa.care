@@ -1,5 +1,13 @@
 #!/bin/bash
 
+#box.kaldi.binary/unstable,now 0.20210301.1316 arm64 [installed]
+#box.kaldi.model.de/unstable,now 0.20210301.1355 all [installed]
+#box.setup.debug/unstable,now 0.20240204.0953 all [installed,automatic]
+#box.sounds/now 0.20210515.1413 all [installed,local]
+#box.tdlib.binary/unstable,now 0.20230419.1459 arm64 [installed]
+#box.tvinfo.de/unstable,now 0.20210301.1309 all [installed]
+#box.webdog.debug/unstable,now 0.20240204.1347 arm64 [installed]
+
 #
 # Development Setup for Source Box.
 #
@@ -39,6 +47,7 @@ cd
 if test -d "go/src/github.com/liesa-care"; then
   echo "Already done..."
 else
+  mkdir -p go/src/github.com
   cd go/src/github.com
   mkdir liesa-care
   cd liesa-care

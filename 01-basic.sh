@@ -59,16 +59,16 @@ sudo dpkg -i bluez_5.66-0ubuntu1_amd64.deb
 #wget https://raw.githubusercontent.com/liesa-care/install.liesa.care/main/bluetooth/bluez_5.66-0ubuntu1_arm64.deb
 #sudo dpkg -i bluez_5.66-0ubuntu1_arm64.deb
 
-echo "Set Bluetooth to Compat Mode"
-BT_CONFIG="/etc/systemd/system/dbus-org.bluez.service"
-BT_OLD="ExecStart=/usr/lib/bluetooth/bluetoothd"
-BT_NEW="ExecStart=/usr/lib/bluetooth/bluetoothd --compat"
-BT_OK=$(sudo grep "$BT_NEW" $BT_CONFIG)
-if [ -n "$BT_OK" ]; then
-  echo "Already done..."
-else
-  sudo sed -i "s:$BT_OLD:$BT_NEW:g" $BT_CONFIG
-fi
+#echo "Set Bluetooth to Compat Mode"
+#BT_CONFIG="/etc/systemd/system/dbus-org.bluez.service"
+#BT_OLD="ExecStart=/usr/lib/bluetooth/bluetoothd"
+#BT_NEW="ExecStart=/usr/lib/bluetooth/bluetoothd --compat"
+#BT_OK=$(sudo grep "$BT_NEW" $BT_CONFIG)
+#if [ -n "$BT_OK" ]; then
+#  echo "Already done..."
+#else
+#  sudo sed -i "s:$BT_OLD:$BT_NEW:g" $BT_CONFIG
+#fi
 
 echo "Setup Udev USB Auto Mount"
 if test -f "/etc/udev/rules.d/99-usb.auto-mount.rules"; then
