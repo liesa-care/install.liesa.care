@@ -44,16 +44,19 @@ fi
 
 echo "Liesa-Care Repositories"
 cd
+mkdir -p go/src/github.com
 if test -d "go/src/github.com/liesa-care"; then
   echo "Already done..."
 else
-  mkdir -p go/src/github.com
   cd go/src/github.com
   mkdir liesa-care
   cd liesa-care
   git clone git@github.com:liesa-care/install.liesa.care
   git clone git@github.com:liesa-care/project.go.liesa.main.git
+  cd project.go.liesa.main
+  go get -u ./...
 fi
+
 
 #echo "Forked Repositories"
 #cd
