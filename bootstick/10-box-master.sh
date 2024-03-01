@@ -153,6 +153,15 @@ EOF
   sudo service autofs reload
 fi
 
+echo "Suppress non working bluetooth devices"
+if test -f "/etc/udev/rules.d/disable-usb-bluetooth.rules"; then
+  echo "Already done..."
+else
+  sudo tee /etc/udev/rules.d/disable-usb-bluetooth.rules << EOF
+ACTION=="add", ATTR{idVendor}=="13d3", ATTR{idProduct}=="3503", RUN="/bin/sh -c 'echo 0 >/sys/\$devpath/authorized'"
+EOF
+fi
+
 echo "User Groups"
 sudo adduser $USER sudo
 sudo adduser $USER input

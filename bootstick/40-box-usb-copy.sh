@@ -15,8 +15,11 @@ export PART_ROOT="/dev/sda2"
 mkdir -p ~/install ~/mounts ~/mounts/boot ~/mounts/root
 
 #
-# Mount partitions.
+# Remount partitions.
 #
+
+sudo umount $PART_BOOT
+sudo umount $PART_ROOT
 
 sudo mount $PART_BOOT ~/mounts/boot
 sudo mount $PART_ROOT ~/mounts/root
@@ -27,6 +30,7 @@ sudo mount $PART_ROOT ~/mounts/root
 
 sudo rm -rf ~/mounts/root/tmp/*
 sudo rm -rf ~/mounts/root/var/cache/apt/*
+sudo rm -rf ~/mounts/root/var/lib/bluetooth/*
 
 #
 # Tar partitions.
