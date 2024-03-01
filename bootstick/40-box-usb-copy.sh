@@ -31,6 +31,8 @@ sudo mount $PART_ROOT ~/mounts/root
 sudo rm -rf ~/mounts/root/tmp/*
 sudo rm -rf ~/mounts/root/var/cache/apt/*
 sudo rm -rf ~/mounts/root/var/lib/bluetooth/*
+sudo rm -rf ~/mounts/root/opt/box/log/*
+sudo rm -rf ~/mounts/root/home/liesa/dezibox
 
 #
 # Tar partitions.
