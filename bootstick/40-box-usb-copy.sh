@@ -32,6 +32,8 @@ sudo rm -rf ~/mounts/root/tmp/*
 sudo rm -rf ~/mounts/root/var/cache/apt/*
 sudo rm -rf ~/mounts/root/var/lib/bluetooth/*
 sudo rm -rf ~/mounts/root/opt/box/log/*
+sudo rm -rf ~/mounts/root/opt/box/var/ipfs
+sudo rm -rf ~/mounts/root/opt/box/var/backups
 sudo rm -rf ~/mounts/root/home/liesa/dezibox
 sudo rm -rf ~/mounts/root/home/liesa/.android
 
@@ -47,5 +49,7 @@ cd ~/mounts/root
 # shellcheck disable=SC2024
 sudo tar --exclude='swapfile' -czvpf ../../install/root.tgz . > ../../install/root.log 2>&1
 
-sudo umount ~/mounts/boot
-sudo umount ~/mounts/root
+#sudo umount ~/mounts/boot
+#sudo umount ~/mounts/root
+
+echo "Box copy done..."
