@@ -30,12 +30,16 @@ sudo mount $PART_ROOT ~/mounts/root
 
 sudo rm -rf ~/mounts/root/tmp/*
 sudo rm -rf ~/mounts/root/var/cache/apt/*
-sudo rm -rf ~/mounts/root/var/lib/bluetooth
 sudo rm -rf ~/mounts/root/opt/box/log/*
 sudo rm -rf ~/mounts/root/opt/box/var/ipfs
 sudo rm -rf ~/mounts/root/opt/box/var/backups
 sudo rm -rf ~/mounts/root/home/liesa/dezibox
 sudo rm -rf ~/mounts/root/home/liesa/.android
+
+sudo rm -rf ~/mounts/root/var/lib/bluetooth
+sudo mkdir ~/mounts/root/var/lib/bluetooth
+sudo rm -rf ~/mounts/root/etc/NetworkManager/system-connections
+sudo mkdir ~/mounts/root/etc/NetworkManager/system-connections
 
 #
 # Tar partitions.
