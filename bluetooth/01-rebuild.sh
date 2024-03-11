@@ -6,7 +6,7 @@
 
 export ARCH=$(dpkg --print-architecture)
 
-export BLUEZVERSION=5.66-0ubuntu1
+export BLUEZVERSION=5.73-0ubuntu1
 export BLUEZ=bluez_$BLUEZVERSION
 
 export REPO=~/go/src/github.com/liesa-care/install.liesa.care
@@ -30,6 +30,9 @@ rm -rf ${BLUEZ}_$ARCH
 mkdir ${BLUEZ}_$ARCH
 dpkg-deb -R ${BLUEZ}_$ARCH.deb ${BLUEZ}_$ARCH
 
+#
+# Do manually!!!!
+#
 sudo sed -i "s/Version: $BLUEZVERSION/Version: $BLUEZVERSION-dezi/g" ${BLUEZ}_$ARCH/DEBIAN/control
 
 cp ${BLUEZ}_$ARCH/DEBIAN/control ${BLUEZ}-dezi_$ARCH.txt
@@ -39,6 +42,16 @@ sudo apt-get build-dep bluez
 git clone https://kernel.googlesource.com/pub/scm/libs/ell/ell.git
 git clone git@github.com:dezi/bluez.git
 cd bluez
+
+#
+# in src/gatt-database.c
+# around 675
+#
+# device = btd_adapter_get_device(adapter, &dst, dst_type);
+#	if (!device || !btd_device_is_connected(device)) {
+#	    DBG("tubu kicksi no fuck!")
+#		return;
+#	}
 
 ./bootstrap
 
