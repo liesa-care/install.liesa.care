@@ -1,0 +1,81 @@
+diff --git a/profiles/input/device.h b/profiles/input/device.h
+index cf0389417..a89b120a5 100644
+--- a/profiles/input/device.h
++++ b/profiles/input/device.h
+@@ -18,7 +18,7 @@ void input_set_idle_timeout(int timeout);
+ void input_enable_userspace_hid(bool state);
+ void input_set_classic_bonded_only(bool state);
+ bool input_get_classic_bonded_only(void);
+-void input_set_auto_sec(bool state);
++bool input_get_auto_sec();
+ 
+ int input_device_register(struct btd_service *service);
+ void input_device_unregister(struct btd_service *service);
+diff --git a/profiles/input/hog.c b/profiles/input/hog.c
+index bc1b89e57..4fb32120f 100644
+--- a/profiles/input/hog.c
++++ b/profiles/input/hog.c
+@@ -54,14 +54,8 @@ struct hog_device {
+ };
+ 
+ static gboolean suspend_supported = FALSE;
+-static bool auto_sec = true;
+ static struct queue *devices = NULL;
+ 
+-void input_set_auto_sec(bool state)
+-{
+-	auto_sec = state;
+-}
+-
+ static void hog_device_accept(struct hog_device *dev, struct gatt_db *db)
+ {
+ 	char name[248];
+@@ -187,7 +181,7 @@ static int hog_accept(struct btd_service *service)
+ 	if (!device_is_bonded(device, btd_device_get_bdaddr_type(device))) {
+ 		struct bt_gatt_client *client;
+ 
+-		if (!auto_sec)
++		if (!input_get_auto_sec())
+ 			return -ECONNREFUSED;
+ 
+ 		client = btd_device_get_gatt_client(device);
+diff --git a/profiles/input/manager.c b/profiles/input/manager.c
+index f4598bcd4..f7958378c 100644
+--- a/profiles/input/manager.c
++++ b/profiles/input/manager.c
+@@ -30,6 +30,13 @@
+ #include "device.h"
+ #include "server.h"
+ 
++static bool auto_sec_global = true;
++
++bool input_get_auto_sec()
++{
++	return auto_sec_global;
++}
++
+ static int hid_server_probe(struct btd_profile *p, struct btd_adapter *adapter)
+ {
+ 	return server_start(btd_adapter_get_address(adapter));
+@@ -117,7 +124,7 @@ static int input_init(void)
+ 		if (!err) {
+ 			DBG("input.conf: LEAutoSecurity=%s",
+ 					auto_sec ? "true" : "false");
+-			input_set_auto_sec(auto_sec);
++			auto_sec_global = auto_sec;
+ 		} else
+ 			g_clear_error(&err);
+ 
+diff --git a/src/gatt-database.c b/src/gatt-database.c
+index 8472aac59..f220050f7 100644
+--- a/src/gatt-database.c
++++ b/src/gatt-database.c
+@@ -673,7 +673,7 @@ static void connect_cb(GIOChannel *io, GError *gerr, gpointer user_data)
+ 		return;
+ 
+ 	device = btd_adapter_get_device(adapter, &dst, dst_type);
+-	if (!device)
++	if (!device || !btd_device_is_connected(device))
+ 		return;
+ 
+ 	device_attach_att(device, io);
