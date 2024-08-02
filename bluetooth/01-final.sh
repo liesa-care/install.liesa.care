@@ -7,14 +7,19 @@
 
 export ARCH=$(dpkg --print-architecture)
 
+export REPO=~/go/src/github.com/liesa-care/install.liesa.care
+
+export BLUEZSOURCE=5.66
+export BLUEZTARGET=5.77
+export BLUEZSOURCENAME=bluez_$BLUEZSOURCE-0ubuntu1_$ARCH
+export BLUEZTARGETNAME=bluez_$BLUEZTARGET-0ubuntu1-dezi_$ARCH
+
 sudo apt-get build-dep bluez
 
 #
 # Update install repository containing
 # templates and patches.
 #
-
-export REPO=~/go/src/github.com/liesa-care/install.liesa.care
 
 go get github.com/liesa-care/install.liesa.care
 cd $REPO
@@ -23,11 +28,6 @@ git pull
 #
 # Fetch and patch bluez source.
 #
-
-export BLUEZSOURCE=5.66
-export BLUEZTARGET=5.77
-export BLUEZSOURCENAME=bluez_$BLUEZSOURCE-0ubuntu1_$ARCH
-export BLUEZTARGETNAME=bluez_$BLUEZTARGET-0ubuntu1-dezi_$ARCH
 
 cd
 rm -rf bluez-final
@@ -110,11 +110,11 @@ echo "----------------"
 #
 
 curl -X PUT --data-binary @${BLUEZTARGETNAME}.deb  -H "Dezis-Secret: ouzo" \
-  https://api1.liesa-care.xyz/dpkg/dists/unstable/main/binary-all/${BLUEZ}-dezi_$ARCH.deb
+  https://api1.liesa-care.xyz/dpkg/dists/unstable/main/binary-all/${BLUEZTARGETNAME}.deb
 curl -X PUT --data-binary @${BLUEZTARGETNAME}.deb  -H "Dezis-Secret: ouzo" \
-  https://api2.liesa-care.xyz/dpkg/dists/unstable/main/binary-all/${BLUEZ}-dezi_$ARCH.deb
+  https://api2.liesa-care.xyz/dpkg/dists/unstable/main/binary-all/${BLUEZTARGETNAME}.deb
 
 curl -X PUT --data-binary @${BLUEZTARGETNAME}.txt  -H "Dezis-Secret: ouzo" \
-  https://api1.liesa-care.xyz/dpkg/dists/unstable/main/binary-all/${BLUEZ}-dezi_$ARCH.txt
+  https://api1.liesa-care.xyz/dpkg/dists/unstable/main/binary-all/${BLUEZTARGETNAME}.txt
 curl -X PUT --data-binary @${BLUEZTARGETNAME}.txt  -H "Dezis-Secret: ouzo" \
-  https://api2.liesa-care.xyz/dpkg/dists/unstable/main/binary-all/${BLUEZ}-dezi_$ARCH.txt
+  https://api2.liesa-care.xyz/dpkg/dists/unstable/main/binary-all/${BLUEZTARGETNAME}.txt
