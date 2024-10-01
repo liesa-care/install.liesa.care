@@ -51,7 +51,7 @@ fi
 
 echo "SSH Key Generation"
 cd
-if test -d ".ssh"; then
+if test -f ".ssh/id_ed25519"; then
   echo "Already done..."
 else
   ssh-keygen
@@ -95,7 +95,7 @@ if [ -n "$APT_PRESENT" ]; then
   echo "Already done..."
 else
   sudo tee -a /etc/apt/sources.list << EOF
-deb [trusted=yes] http://apt.liesa.care/dpkg unstable main
+deb [trusted=yes] http://apt.liesa-care.xyz/dpkg unstable main
 EOF
 fi
 
@@ -151,7 +151,10 @@ exit 1
 EOF
   sudo chmod a+x /etc/auto.usb
   sudo service autofs reload
+  sudo systemctl daemon-reload
 fi
+
+#### GRUB_CMDLINE_LINUX_DEFAULT="quiet splash fsck.mode=force fsck.repair=yes"
 
 echo "Suppress non working bluetooth devices"
 if test -f "/etc/udev/rules.d/disable-usb-bluetooth.rules"; then
