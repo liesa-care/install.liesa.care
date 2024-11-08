@@ -54,7 +54,6 @@ else
   git clone git@github.com:liesa-care/install.liesa.care
   git clone git@github.com:liesa-care/project.go.liesa.main.git
   cd project.go.liesa.main
-  go get -u ./...
 fi
 
 
