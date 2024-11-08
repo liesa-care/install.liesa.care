@@ -46,16 +46,16 @@ sudo apt install -y \
 
 sudo apt autoremove -y
 
-echo "Remove Desktop Integration Bug"
-sudo snap remove snapd-desktop-integration
+#echo "Remove Desktop Integration Bug"
+#sudo snap remove snapd-desktop-integration
 
 echo "Install node"
 sudo snap install node --classic
 
-echo "Fix Fucked Up Ubuntu bluez Package"
-cd
-wget https://raw.githubusercontent.com/liesa-care/install.liesa.care/main/bluetooth/bluez_5.66-0ubuntu1_amd64.deb
-sudo dpkg -i bluez_5.66-0ubuntu1_amd64.deb
+#echo "Fix Fucked Up Ubuntu bluez Package"
+#cd
+#wget https://raw.githubusercontent.com/liesa-care/install.liesa.care/main/bluetooth/bluez_5.66-0ubuntu1_amd64.deb
+#sudo dpkg -i bluez_5.66-0ubuntu1_amd64.deb
 #wget https://raw.githubusercontent.com/liesa-care/install.liesa.care/main/bluetooth/bluez_5.66-0ubuntu1_arm64.deb
 #sudo dpkg -i bluez_5.66-0ubuntu1_arm64.deb
 
@@ -144,7 +144,7 @@ echo "GO Install"
 if test -d "/usr/local/go"; then
   echo "Already done..."
 else
-  GO_VERSION="go1.21.5"
+  GO_VERSION="go1.23.3"
   APT_ARCH=$(dpkg --print-architecture)
   cd
   mkdir goinst
