@@ -42,7 +42,8 @@ sudo apt install -y \
   libdbus-1-dev libudev-dev libical-dev libreadline-dev \
   libssl-dev zlib1g-dev libasound2-dev upower alsa-utils \
   libopus-dev libopusfile-dev pkg-config \
-  mosquitto mosquitto-clients
+  mosquitto mosquitto-clients pulseaudio \
+  libavcodec-dev libavutil-dev libswscale-dev
 
 sudo apt autoremove -y
 
@@ -105,6 +106,7 @@ exit 1
 EOF
   sudo chmod a+x /etc/auto.usb
   sudo service autofs reload
+  sudo systemctl daemon-reload
 fi
 
 echo "User Groups"
