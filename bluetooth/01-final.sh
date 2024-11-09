@@ -9,11 +9,16 @@ export ARCH=$(dpkg --print-architecture)
 
 export REPO=~/go/src/github.com/liesa-care/install.liesa.care
 
-export BLUEZSOURCE=5.66
+export BLUEZSOURCE=5.72
 export BLUEZTARGET=5.77
-export BLUEZSOURCENAME=bluez_$BLUEZSOURCE-0ubuntu1_$ARCH
-export BLUEZTARGETNAME=bluez_$BLUEZTARGET-0ubuntu1-dezi_$ARCH
+export BLUEZSOURCENAME=bluez_$BLUEZSOURCE-0ubuntu5_$ARCH
+export BLUEZTARGETNAME=bluez_$BLUEZTARGET-0ubuntu5-dezi_$ARCH
 
+#
+# /etc/apt/sources.list
+# deb-src http://de.archive.ubuntu.com/ubuntu/ jammy main restricted
+# deb-src http://de.archive.ubuntu.com/ubuntu/ noble main restricted
+#
 sudo apt-get build-dep bluez
 
 #
@@ -21,7 +26,6 @@ sudo apt-get build-dep bluez
 # templates and patches.
 #
 
-go get github.com/liesa-care/install.liesa.care
 cd $REPO
 git pull
 
@@ -32,6 +36,17 @@ git pull
 cd
 rm -rf bluez-final
 mkdir bluez-final
+cd bluez-final
+
+wget https://mirrors.edge.kernel.org/pub/linux/libs/ell/ell-0.70.tar.gz
+tar xvf ./ell-0.70.tar.gz
+mv ell-0.70 ell
+cd ell
+./configure --prefix=/usr
+make
+sudo make install
+
+cd
 cd bluez-final
 
 git clone https://github.com/bluez/bluez.git
@@ -51,30 +66,31 @@ make
 strip ./src/bluetoothd
 strip ./client/bluetoothctl
 
-cd ..
+cd
+cd bluez-final
 
 #
 # Unpack debian package.
 #
 
-cp $REPO/bluetooth/${BLUEZSOURCENAME}.deb .
+apt download bluez
 
-rm -rf $BLUEZSOURCENAME
-mkdir $BLUEZSOURCENAME
-dpkg-deb -R $BLUEZSOURCENAME.deb $BLUEZSOURCENAME
+rm -rf "$BLUEZSOURCENAME"
+mkdir "$BLUEZSOURCENAME"
+dpkg-deb -R "$BLUEZSOURCENAME".deb "$BLUEZSOURCENAME"
 
 #
 # Patch and copy control file.
 #
 
-sudo sed -i "s/Version: $BLUEZSOURCE-0ubuntu1/Version: $BLUEZTARGET-0ubuntu1-dezi/g" $BLUEZSOURCENAME/DEBIAN/control
+sudo sed -i "s/Version: $BLUEZSOURCE-0ubuntu5/Version: $BLUEZTARGET-0ubuntu5-dezi/g" $BLUEZSOURCENAME/DEBIAN/control
 cp $BLUEZSOURCENAME/DEBIAN/control ${BLUEZTARGETNAME}.txt
 
 #
 # Replace binaries with newer version.
 #
 
-cp bluez/src/bluetoothd $BLUEZSOURCENAME/usr/lib/bluetooth/bluetoothd
+cp bluez/src/bluetoothd $BLUEZSOURCENAME/usr/libexec/bluetooth/bluetoothd
 cp bluez/client/bluetoothctl $BLUEZSOURCENAME/usr/bin/bluetoothctl
 
 #
