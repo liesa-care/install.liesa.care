@@ -10,7 +10,7 @@ export ARCH=$(dpkg --print-architecture)
 export REPO=~/go/src/github.com/liesa-care/install.liesa.care
 
 export BLUEZSOURCE=5.72
-export BLUEZTARGET=5.77
+export BLUEZTARGET=5.79
 export BLUEZSOURCENAME=bluez_$BLUEZSOURCE-0ubuntu5_$ARCH
 export BLUEZTARGETNAME=bluez_$BLUEZTARGET-0ubuntu5-dezi_$ARCH
 
