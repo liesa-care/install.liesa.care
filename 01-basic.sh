@@ -35,7 +35,7 @@ sudo apt upgrade -y
 
 echo "Install additional packages"
 sudo apt install -y \
-  iw adb git nmap ffmpeg autofs hwinfo \
+  iw adb git bluez nmap ffmpeg autofs hwinfo \
   v4l-utils net-tools pavucontrol build-essential \
   libsbc-dev libbluetooth-dev zlib1g-dev libssl-dev \
   cpufrequtils speedtest-cli wireless-tools network-manager \
