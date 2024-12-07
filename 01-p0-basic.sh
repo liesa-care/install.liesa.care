@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Basic setup for normal box.
+# Basic setup for pi zero (not pi zero 2!).
 #
 
 echo "Allow sudo w/o password"
@@ -19,16 +19,16 @@ else
   echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/90force-ipv4
 fi
 
-echo "SSH Key Generation"
-cd
-if test -d ".ssh"; then
-  echo "Already done..."
-else
-  ssh-keygen
-  ssh-copy-id localhost
-fi
+#echo "SSH Key Generation"
+#cd
+#if test -d ".ssh"; then
+#  echo "Already done..."
+#else
+#  ssh-keygen
+#  ssh-copy-id localhost
+#fi
 
-echo "Install Ubuntu Updates"
+echo "Install Debian Updates"
 export DEBIAN_FRONTEND=noninteractive
 sudo apt update
 sudo apt upgrade -y
@@ -46,30 +46,6 @@ sudo apt install -y \
   libavcodec-dev libavutil-dev libswscale-dev
 
 sudo apt autoremove -y
-
-#echo "Remove Desktop Integration Bug"
-#sudo snap remove snapd-desktop-integration
-
-echo "Install node"
-sudo snap install node --classic
-
-#echo "Fix Fucked Up Ubuntu bluez Package"
-#cd
-#wget https://raw.githubusercontent.com/liesa-care/install.liesa.care/main/bluetooth/bluez_5.66-0ubuntu1_amd64.deb
-#sudo dpkg -i bluez_5.66-0ubuntu1_amd64.deb
-#wget https://raw.githubusercontent.com/liesa-care/install.liesa.care/main/bluetooth/bluez_5.66-0ubuntu1_arm64.deb
-#sudo dpkg -i bluez_5.66-0ubuntu1_arm64.deb
-
-#echo "Set Bluetooth to Compat Mode"
-#BT_CONFIG="/etc/systemd/system/dbus-org.bluez.service"
-#BT_OLD="ExecStart=/usr/lib/bluetooth/bluetoothd"
-#BT_NEW="ExecStart=/usr/lib/bluetooth/bluetoothd --compat"
-#BT_OK=$(sudo grep "$BT_NEW" $BT_CONFIG)
-#if [ -n "$BT_OK" ]; then
-#  echo "Already done..."
-#else
-#  sudo sed -i "s:$BT_OLD:$BT_NEW:g" $BT_CONFIG
-#fi
 
 echo "Setup Udev USB Auto Mount"
 if test -f "/etc/udev/rules.d/99-usb.auto-mount.rules"; then
@@ -130,7 +106,7 @@ export PATH=$PATH:/usr/local/go/bin
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 alias psg='ps -eaf | grep -v grep | grep'
-alias ta="tail -f /opt/box/log/webbox.log"
+alias ta="tail -f /opt/box/log/websen.log"
 alias ll="ls -alh"
 alias du="du -h"
 alias df="df -h"
@@ -138,16 +114,13 @@ EOF
 . .profile
 fi
 
-echo "Enable user background processes"
-sudo loginctl enable-linger $USER
-sudo sed -i 's/#KillUserProcesses=no/KillUserProcesses=no/g' /etc/systemd/logind.conf
-
 echo "GO Install"
 if test -d "/usr/local/go"; then
   echo "Already done..."
 else
   GO_VERSION="go1.23.3"
-  APT_ARCH=$(dpkg --print-architecture)
+  #APT_ARCH=$(dpkg --print-architecture)
+  APT_ARCH="armv6l"
   cd
   mkdir goinst
   cd goinst
@@ -179,66 +152,24 @@ else
 fi
 
 echo "Setup Hardware Serial Number"
-# Raspi:
-# cp /sys/firmware/devicetree/base/serial-number /opt/box/etc/boxserial.txt
-if test -f "/opt/box/etc/boxserial.txt"; then
-  echo "Already done..."
-else
-  echo "Please enter serial number:"
-  read -r serial
-  echo "$serial" > /opt/box/etc/boxserial.txt
-fi
+cp /sys/firmware/devicetree/base/serial-number /opt/box/etc/boxserial.txt
 
-echo "Setup Box Owner Email"
-if test -f "/opt/box/etc/boxowner.txt"; then
-  echo "Already done..."
-else
-  echo "Please enter Your email (required to access box via app):"
-  read -r email
-  echo "$email" > /opt/box/etc/boxowner.txt
-fi
+#echo "Setup Box Owner Email"
+#if test -f "/opt/box/etc/boxowner.txt"; then
+#  echo "Already done..."
+#else
+#  echo "Please enter Your email (required to access box via app):"
+#  read -r email
+#  echo "$email" > /opt/box/etc/boxowner.txt
+#fi
 
-echo "Box APT Repository"
-APT_PRESENT=$(grep apt.liesa-care.xyz /etc/apt/sources.list)
-if [ -n "$APT_PRESENT" ]; then
-  echo "Already done..."
-else
-  sudo tee -a /etc/apt/sources.list << EOF
-deb [trusted=yes] http://apt2.liesa-care.xyz/dpkg unstable main
-EOF
-  sudo apt update
-fi
-
-echo "Box Package Telegram Library (Required)"
-sudo apt install -y box.tdlib.binary
-
-#echo "Box Package Kaldi Binaries and Model (Required)"
-#sudo apt install -y box.kaldi.binary
-#sudo apt install -y box.kaldi.model.de
-#sudo tee /etc/ld.so.conf.d/kaldi.conf << EOF
-#/opt/box/kaldi/lib
+#echo "Box APT Repository"
+#APT_PRESENT=$(grep apt.liesa-care.xyz /etc/apt/sources.list)
+#if [ -n "$APT_PRESENT" ]; then
+#  echo "Already done..."
+#else
+#  sudo tee -a /etc/apt/sources.list << EOF
+#deb [trusted=yes] http://apt2.liesa-care.xyz/dpkg unstable main
 #EOF
-#sudo ldconfig
-
-echo "Box Packages (Optional)"
-sudo apt install -y box.tvbox.apk.debug
-
-sudo apt install -y box.tvinfo.de
-
-sudo apt install -y box.cities.data.de
-sudo apt install -y box.cities.infos.de
-sudo apt install -y box.cities.taggers.de
-
-sudo apt install -y box.osm.infos.de
-sudo apt install -y box.osm.taggers.de
-
-sudo apt install -y box.wikipedia.taggers.de
-sudo apt install -y box.wikipedia.teasers.de
-
-sudo apt install -y box.tmdb.taggers.de
-sudo apt install -y box.tmdb.persons.de
-sudo apt install -y box.tmdb.movies.de
-sudo apt install -y box.tmdb.moviesplay.de-de
-sudo apt install -y box.tmdb.series.de
-sudo apt install -y box.tmdb.seriesplay.de-de
-
+#  sudo apt update
+#fi

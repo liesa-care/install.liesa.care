@@ -33,7 +33,7 @@ mkdir tdlib
 cd tdlib
 git clone https://github.com/tdlib/td.git
 cd td
-git checkout tags/v1.8.0
+git checkout 1a50ec4
 ```
 
 ### Compile for Dpkg-Collect (Linux)
