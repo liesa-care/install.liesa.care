@@ -210,13 +210,13 @@ fi
 echo "Box Package Telegram Library (Required)"
 sudo apt install -y box.tdlib.binary
 
-echo "Box Package Kaldi Binaries and Model (Required)"
-sudo apt install -y box.kaldi.binary
-sudo apt install -y box.kaldi.model.de
-sudo tee /etc/ld.so.conf.d/kaldi.conf << EOF
-/opt/box/kaldi/lib
-EOF
-sudo ldconfig
+#echo "Box Package Kaldi Binaries and Model (Required)"
+#sudo apt install -y box.kaldi.binary
+#sudo apt install -y box.kaldi.model.de
+#sudo tee /etc/ld.so.conf.d/kaldi.conf << EOF
+#/opt/box/kaldi/lib
+#EOF
+#sudo ldconfig
 
 echo "Box Packages (Optional)"
 sudo apt install -y box.tvbox.apk.debug
