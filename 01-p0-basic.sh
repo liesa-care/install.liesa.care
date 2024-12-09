@@ -93,6 +93,7 @@ sudo adduser $USER video
 sudo adduser $USER netdev
 sudo adduser $USER plugdev
 sudo adduser $USER dialout
+sudo adduser $USER gpio
 
 echo "Aliases and Paths"
 cd
