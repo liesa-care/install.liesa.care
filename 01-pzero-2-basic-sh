@@ -1,0 +1,105 @@
+#!/bin/bash
+
+#
+# Basic setup for pi zero 2.
+#
+
+echo "Allow sudo w/o password"
+NOPASSWD=$(sudo grep NOPASSWD /etc/sudoers)
+if [ -n "$NOPASSWD" ]; then
+  echo "Already done..."
+else
+  sudo sed -i 's/%sudo\tALL=(ALL:ALL) ALL/%sudo\tALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers
+fi
+
+echo "Force apt to IPV4"
+if test -f "/etc/apt/apt.conf.d/90force-ipv4"; then
+  echo "Already done..."
+else
+  echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/90force-ipv4
+fi
+
+echo "Install additional packages"
+sudo apt install -y \
+  iw git bluez hwinfo \
+  v4l-utils net-tools pavucontrol build-essential \
+  libsbc-dev libbluetooth-dev zlib1g-dev libssl-dev \
+  cpufrequtils speedtest-cli wireless-tools network-manager \
+  libdbus-1-dev libudev-dev libical-dev libreadline-dev \
+  libssl-dev zlib1g-dev libasound2-dev upower alsa-utils \
+  libopus-dev libopusfile-dev pkg-config \
+  mosquitto mosquitto-clients pulseaudio \
+  libavcodec-dev libavutil-dev libswscale-dev
+
+sudo apt autoremove -y
+
+echo "User Groups"
+sudo adduser $USER sudo
+sudo adduser $USER input
+sudo adduser $USER audio
+sudo adduser $USER video
+sudo adduser $USER netdev
+sudo adduser $USER plugdev
+sudo adduser $USER dialout
+sudo adduser $USER gpio
+
+echo "Aliases and Paths"
+cd
+if test -f ".profile.bak"; then
+  echo "Already done..."
+else
+  cp .profile .profile.bak
+  cat >> .profile << EOF
+# Liesa-Care additions.
+export PATH=$PATH:/usr/local/go/bin
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+alias psg='ps -eaf | grep -v grep | grep'
+alias ta="tail -f /opt/box/log/websen.log"
+alias ll="ls -alh"
+alias du="du -h"
+alias df="df -h"
+EOF
+. .profile
+fi
+
+echo "Box Directory"
+if test -d "/opt/box"; then
+  echo "Already done..."
+else
+  sudo mkdir /opt/box
+  sudo chown $USER /opt/box
+  sudo chgrp $USER /opt/box
+# sudo chgrp staff /opt/box
+  mkdir /opt/box/etc
+  mkdir /opt/box/log
+  mkdir /opt/box/var
+  mkdir /opt/box/gen
+  mkdir /opt/box/dev
+fi
+
+
+
+
+
+
+echo "GO Install"
+if test -d "/usr/local/go"; then
+  echo "Already done..."
+else
+  GO_VERSION="go1.23.3"
+  APT_ARCH=$(dpkg --print-architecture)
+  cd
+  mkdir goinst
+  cd goinst
+  wget https://golang.org/dl/$GO_VERSION.linux-$APT_ARCH.tar.gz
+  tar xvzf $GO_VERSION.linux-$APT_ARCH.tar.gz
+  sudo rm -rf /usr/local/go
+  sudo mv go /usr/local
+  go env -w GO111MODULE=auto
+  rm $GO_VERSION.linux-$APT_ARCH.tar.gz
+  cd
+  rmdir goinst
+  mkdir -p ~/go/src/github.com
+  go version
+fi
